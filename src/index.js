@@ -11,7 +11,7 @@ const passport =require("./config/google.auth")
 const cors = require("cors")
 app.use(express.json());
 
-app.use(cors())
+app.use(cors({origin:"*"}))
 app.use("/user",userController);
 app.use("/men",menController);
 app.use("/women",girlsController);
