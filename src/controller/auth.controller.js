@@ -16,7 +16,7 @@ const register = async (req,res) =>{
 
         if (user){
             
-            return res.status(400).send("User already exists plesae choose different mobile number ");
+            return res.status(400).send({message:"User already exists plesae choose different mobile number "});
         }
         user = await User.create(req.body)
 
@@ -33,10 +33,10 @@ const login = async (req,res) =>{
     try{
         let user = await User.findOne({mobileNumber:req.body.mobileNumber})
 
-        if (!user) return res.status(400).send("Wrong mobile number and password please check again");
+        if (!user) return res.status(400).send({message:"Wrong mobile number and password please check again"});
         //    console.log("check",user)  
         const match =  user.checkPassword(req.body.password);
-        if (!match) return res.status(400).send(" Wrong mobile number and password please check again");
+        if (!match) return res.status(400).send({message:" Wrong mobile number and password please check again"});
 
         const token = generateToken(user)
         return res.status(200).send({user,token});
@@ -51,7 +51,7 @@ const login_mobile= async(req,res) =>{
     try{
         let user = await User.findOne({mobileNumber:req.body.mobileNumber}).lean().exec();
 
-        if (!user) return res.status(400).send("Wrong mobile number and password please check again");
+        if (!user) return res.status(400).send({message:"Wrong mobile number and password please check again"});
         
         // const match =  user.checkPassword(req.body.password);
         // if (!match) return res.status(400).send(" Wrong mobile number and password please check again");
